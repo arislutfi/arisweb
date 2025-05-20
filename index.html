@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogja - The Soul of Java</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: #333;
+            line-height: 1.6;
+            background-color: #fafafa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/api/placeholder/1200/800') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+        }
+        
+        .header-content h1 {
+            font-size: 4.5rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+        }
+        
+        .header-content p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            letter-spacing: 1px;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: transparent;
+            padding: 20px 0;
+            transition: all 0.5s ease;
+            z-index: 100;
+        }
+        
+        nav.scrolled {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 10px 0;
+        }
+        
+        nav.scrolled .nav-link {
+            color: #333;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: 2px;
+        }
+        
+        nav.scrolled .logo {
+            color: #333;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: #e2c58f;
+        }
+        
+        nav.scrolled .nav-link:hover {
+            color: #9c7c38;
+        }
+        
+        /* Section Styles */
+        section {
+            padding: 100px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #333;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 1px;
+            background-color: #9c7c38;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        /* About Section */
+        .about {
+            background-color: #fff;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .about-text {
+            flex: 1;
+            padding-right: 50px;
+        }
+        
+        .about-text h3 {
+            font-size: 1.8rem;
+            font-weight: 300;
+            margin-bottom: 20px;
+            color: #9c7c38;
+        }
+        
+        .about-text p {
+            margin-bottom: 15px;
+            color: #666;
+            font-weight: 300;
+            line-height: 1.8;
+        }
+        
+        .about-image {
+            flex: 1;
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Destinations Section */
+        .destinations {
+            background-color: #fafafa;
+        }
+        
+        .destination-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 30px;
+        }
+        
+        .destination-card {
+            position: relative;
+            overflow: hidden;
+            height: 350px;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .destination-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .destination-card:hover img {
+            transform: scale(1.1);
+        }
+        
+        .destination-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            color: #fff;
+            transform: translateY(0);
+            transition: transform 0.5s ease;
+        }
+        
+        .destination-info h3 {
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 10px;
+        }
+        
+        .destination-info p {
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            font-weight: 300;
+        }
+        
+        .destination-card:hover .destination-info p {
+            opacity: 1;
+        }
+        
+        /* Gallery Section */
+        .gallery {
+            background-color: #fff;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 200px);
+            grid-gap: 15px;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .gallery-item.large {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        /* Culture Section */
+        .culture {
+            background-color: #fafafa;
+        }
+        
+        .culture-content {
+            display: flex;
+            align-items: center;
+        }
+        
+        .culture-image {
+            flex: 1;
+            position: relative;
+            height: 500px;
+        }
+        
+        .culture-image img {
+            position: absolute;
+            width: 60%;
+            height: 60%;
+            object-fit: cover;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .culture-image img:nth-child(1) {
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        
+        .culture-image img:nth-child(2) {
+            top: 20%;
+            left: 30%;
+            z-index: 2;
+        }
+        
+        .culture-image img:nth-child(3) {
+            bottom: 0;
+            right: 0;
+            z-index: 3;
+        }
+        
+        .culture-text {
+            flex: 1;
+            padding-left: 50px;
+        }
+        
+        .culture-text h3 {
+            font-size: 1.8rem;
+            font-weight: 300;
+            margin-bottom: 20px;
+            color: #9c7c38;
+        }
+        
+        .culture-text p {
+            margin-bottom: 15px;
+            color: #666;
+            font-weight: 300;
+            line-height: 1.8;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #222;
+            color: #fff;
+            padding: 50px 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .footer-content p {
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            font-weight: 300;
+            color: #bbb;
+        }
+        
+        .social-links {
+            margin-bottom: 20px;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            margin: 0 10px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: #9c7c38;
+        }
+        
+        .copyright {
+            font-size: 0.8rem;
+            color: #777;
+        }
+        
+        /* Responsive Design */
+        @media screen and (max-width: 992px) {
+            .destination-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .about-content,
+            .culture-content {
+                flex-direction: column;
+            }
+            
+            .about-text,
+            .culture-text {
+                padding: 0;
+                margin-bottom: 50px;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header-content h1 {
+                font-size: 3rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .culture-image {
+                height: 400px;
+            }
+        }
+        
+        @media screen and (max-width: 576px) {
+            .destination-grid,
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .culture-image {
+                height: 350px;
+            }
+        }
+        
+        /* Animation for page loading */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        body {
+            animation: fadeIn 1s ease;
+        }
+    </style>
+</head>
+<body>
+   
+    
+    <header>
+        <div class="header-content">
+            <h1>YOGYAKARTA</h1>
+            <p>The Soul of Java</p>
+        </div>
+    </header>
+    
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>Selamat  Datang Di JOGJA</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Jogja kota istimewa</h3>
+                    <p>Kunjungan Industri Jurusan RPL
+                        SMKN 2 Trenggalek
+                        Sebagai bagian dari upaya membekali peserta didik dengan pengalaman nyata di dunia kerja, Jurusan Rekayasa Perangkat Lunak (RPL) SMKN 2 Trenggalek melaksanakan kegiatan Kunjungan Industri ke perusahaan-perusahaa
+                        n teknologi informasi terkemuka. Kegiatan ini menjadi salah satu wujud nyata implementasi pembelajaran berbasis industri dalam dunia pendidikan vokasi.</p>
+                    <p>Dalam kunjungan ini, para siswa RPL berkesempatan untuk mengamati langsung proses kerja profesional di bidang pengembangan perangkat lunak, mulai dari tahap perencanaan sistem, pengkodean, pengujian (testing), hingga penerapan metode agile dan penggunaan 
+                        teknologi cloud computing. Beberapa perusahaan yang dikunjungi antara lain adalah startup digital, software house, serta divisi IT dari korporasi besar yang bergerak di bidang teknologi informasi.</p>
+                    <p>Dengan penuh semangat, siswa mengikuti sesi sharing dan diskusi bersama para programmer, analis sistem, dan project manager. Mereka belajar tentang pentingnya kolaborasi tim, manajemen proyek berbasis SCRUM, hingga bagaimana menjaga kualitas kode dan dokumentasi sistem secara profesional.
+                        Lebih dari sekadar observasi, kegiatan ini juga menjadi sarana refleksi bagi para siswa untuk memahami standar industri dan mempersiapkan diri menghadapi tantangan dunia kerja di era digital. Selain itu, kunjungan industri ini turut membuka wawasan siswa mengenai tren teknologi terkini seperti 
+                        pengembangan aplikasi berbasis web dan mobile, kecerdasan buatan (AI), serta Internet of Things (IoT).</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://raminten.com/wp-content/uploads/2024/07/tugu-jogja.jpg" alt="Yogyakarta City View">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="destinations" class="destinations">
+        <div class="container">
+            <div class="section-title">
+                <h2>Iconic Destinations</h2>
+            </div>
+            <div class="destination-grid">
+                <div class="destination-card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1Ic6tVkJJEQb8V4npXi62qXKGsyybbCTVCA&s" alt="omah oblong">
+                    <div class="destination-info">
+                        <h3>Omah Oblong</h3>
+                        <p>The world's largest Buddhist temple and a UNESCO World Heritage site, dating from the 9th century.</p>
+                    </div>
+                </div>
+                
+                <div class="destination-card">
+                    <img src="WhatsApp Image 2025-05-19 at 12.24.09.jpeg" alt="Universitas Teknologi Digital Indonesia (UTDI)">
+                    <div class="destination-info">
+                        <h3>Universitas Teknologi Digital Indonesia (UTDI)</h3>
+                        <p>A magnificent 9th-century Hindu temple compound dedicated to the Trimurti: Brahma, Vishnu, and Shiva.</p>
+                    </div>
+                </div>
+                
+                <div class="destination-card">
+                    <img src="WhatsApp Image 2025-05-19 at 12.13.14.jpeg" alt="Malioboro Street">
+                    <div class="destination-info">
+                        <h3>Malioboro Street</h3>
+                        <p>The beating heart of Yogyakarta, famous for shopping, street food, and vibrant local culture.</p>
+                    </div>
+                </div>
+                
+                <div class="destination-card">
+                    <img src="WhatsApp Image 2025-05-19 at 11.54.31.jpeg" alt="Obelix SeaView">
+                    <div class="destination-info">
+                        <h3>Obelix SeaView</h3>
+                        <p>The former royal garden of the Sultanate, featuring pools, fountains, and bathing complexes.</p>
+                    </div>
+                </div>
+                
+                <div class="destination-card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoQrTjhQeYmqO-BuUlAID-SQ0Rfdtz_GXChA&s" alt="POP!Timoho Hotel">
+                    <div class="destination-info">
+                        <h3>POP!Timoho Hotel</h3>
+                        <p>One of Indonesia's most active volcanoes, considered sacred in Javanese culture.</p>
+                    </div>
+                </div>
+                
+                <div class="destination-card">
+                    <img src="https://akcdn.detik.net.id/community/media/visual/2023/02/07/suasana-di-teras-malioboro-jogja-selasa-722023-1_169.jpeg?w=700&q=90" alt="Teras Malioboro">
+                    <div class="destination-info">
+                        <h3>Teras Malioboro</h3>
+                        <p>The palace of the Sultan, serving as the cultural heart and living museum of Javanese traditions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <div class="section-title">
+                <h2>Random</h2>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item large">
+                    <img src="WhatsApp Image 2025-05-20 at 14.41.38.jpeg" alt="Omah Oblong">
+                </div>
+                <div class="gallery-item">
+                    <img src="WhatsApp Image 2025-05-20 at 14.41.39.jpeg" alt="Universitas Teknologi Digital Indonesia (UTDI)">
+                </div>
+                <div class="gallery-item">
+                    <img src="WhatsApp Image 2025-05-20 at 14.41.40.jpeg" alt="Malioboro Street">
+                </div>
+                <div class="gallery-item">
+                    <img src="WhatsApp Image 2025-05-20 at 14.41.41.jpeg" alt="Gudeg Jogja">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="culture" class="culture">
+        <div class="container">
+            <div class="section-title">
+                <h2>Cultural Heritage</h2>
+            </div>
+            <div class="culture-content">
+                <div class="culture-image">
+                    <img src="WhatsApp Image 2025-05-19 at 12.13.14.jpeg" alt="Batik Making">
+                    <img src="WhatsApp Image 2025-05-19 at 12.24.09.jpeg" alt="Wayang Kulit Performance">
+                    <img src="https://pesonakota.com/wp-content/uploads/2019/02/Maraiboros.jpg" alt="Traditional Dance">
+                </div>
+                <div class="culture-text">
+                    <h3>Living Traditions</h3>
+                    <p>Yogyakarta is the guardian of Javanese culture, preserving centuries-old traditions while embracing contemporary expressions. The city's artistic soul can be seen in its traditional arts, crafts, and performances.</p>
+                    <p>Witness the mesmerizing Wayang Kulit shadow puppet shows, where skilled puppeteers bring ancient stories to life. Explore the intricate art of batik-making, with its distinctive patterns symbolizing philosophical concepts. Experience the captivating Ramayana Ballet performances against the backdrop of Prambanan Temple under the stars.</p>
+                    <p>The sultry sounds of gamelan orchestras, the precise movements of classical Javanese dancers, and the vibrant colors of traditional markets all contribute to Jogja's cultural tapestry. Here, art is not confined to museums but is an integral part of daily life, connecting the past with the present.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="footer-content">
+            <p>Experience the timeless beauty of Yogyakarta, where every moment becomes a cherished memory.</p>
+            <div class="social-links">
+                <a href="#">Instagram</a>
+                <a href="#">Facebook</a>
+                <a href="#">Twitter</a>
+            </div>
+            <p class="copyright">© 2025 Pesona Jogja. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Simple JavaScript for navbar scrolling effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
